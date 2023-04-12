@@ -5,9 +5,10 @@ import Header from "@components/Header";
 import PageInfo from "@components/PageInfo";
 import TeamCard from "@components/TeamCard";
 import EmptyList from "@components/EmptyList";
+import Button from "@components/Button";
 
 export default function Teams() {
-  const [teams, setTeams] = useState<string[]>([]);
+  const [teams, setTeams] = useState<string[]>(["Team Allan"]);
 
   return (
     <Container>
@@ -22,6 +23,7 @@ export default function Teams() {
           <EmptyList message="No teams found. That's a great time to create one." />
         )}
       />
+      <Button title="Create new team" />
     </Container>
   );
 }
