@@ -6,10 +6,13 @@ import Header from "@components/Header";
 import ButtonIcon from "@components/ButtonIcon";
 import Input from "@components/Input";
 import Filter from "@components/Filter";
+import MemberCard from "@components/MemberCard";
+import EmptyList from "@components/EmptyList";
+import Button from "@components/Button";
 
 export default function Members() {
   const [team, setTeam] = useState("A Team");
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState(["Allan"]);
 
   return (
     <Container>
@@ -40,6 +43,24 @@ export default function Members() {
         />
         <MemberCount>{players.length}</MemberCount>
       </ListHeader>
+
+      <FlatList
+        data={players}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
+          <MemberCard name={item} onRemove={() => {}} />
+        )}
+        ListEmptyComponent={() => (
+          <EmptyList message="No team members found." />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 50 },
+          players.length === 0 && { flex: 1 },
+        ]}
+      />
+
+      <Button title="Delete team" type="SECONDARY" />
     </Container>
   );
 }
