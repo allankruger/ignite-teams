@@ -1,4 +1,6 @@
-import { Container, Form } from "./style";
+import { useState } from "react";
+import { FlatList } from "react-native";
+import { Container, Form, ListHeader, MemberCount } from "./style";
 import PageInfo from "@components/PageInfo";
 import Header from "@components/Header";
 import ButtonIcon from "@components/ButtonIcon";
@@ -6,6 +8,9 @@ import Input from "@components/Input";
 import Filter from "@components/Filter";
 
 export default function Members() {
+  const [team, setTeam] = useState("A Team");
+  const [players, setPlayers] = useState([]);
+
   return (
     <Container>
       <Header showBackButton />
@@ -20,7 +25,21 @@ export default function Members() {
         <ButtonIcon icon="add" />
       </Form>
 
-      <Filter title="A Team" isActive />
+      <ListHeader>
+        <FlatList
+          horizontal
+          data={["A Team", "B Team"]}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <Filter
+              title={item}
+              isActive={item === team}
+              onPress={() => setTeam(item)}
+            />
+          )}
+        />
+        <MemberCount>{players.length}</MemberCount>
+      </ListHeader>
     </Container>
   );
 }
